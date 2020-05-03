@@ -20,10 +20,10 @@ Thingiverse page (of original): http://www.thingiverse.com/thing:537516
 
 Examples of simple clips:
 
-![Examples](/images/IMG_1076.jpg?raw=true "Examples")
+![Examples](/images/IMG_1076.jpeg?raw=true "Examples")
 
 Example of closed bin:
 
-![Examples](/images/IMG_5430.jpg?raw=true "Examples")
+![Examples](/images/IMG_5430.jpeg?raw=true "Examples")
 
 Note: this is CC-NC (Creative Commons - Attribution - Non-Commercial), if you intend to use this for commercial purposes please contact me first.

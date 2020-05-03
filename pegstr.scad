@@ -154,9 +154,9 @@ module pinboard_clips()
                 
                 rowIsEven = z % 2 == 0;
                 firstItem = x == 0;
-                lastItem = x == xCount;
+                lastItem = x == xCount - 1;
                 firstRow = z == 0;
-                skipWhen = !firstRow && rowIsEven && (firstItem || lastItem);
+                skipWhen = !firstRow && rowIsEven && (firstItem || lastItem) && (firstItem && lastItem);
                 
                 if (!skipWhen) {                
                     translate([
@@ -186,11 +186,11 @@ module pinboard()
 			holder_total_x/2,0])
 			cylinder(r=hole_size_x/2,  h=wall_thickness);
 
-		translate([max(strength_factor, pin_z_count - 1)*hole_spacing_z + 1,
+		translate([max(strength_factor, pin_z_count - 1)*hole_spacing_z + 2,
 			-hole_spacing_x*((pin_x_count-1)/2),0])
 			cylinder(r=hole_size_x/2, h=wall_thickness);
 
-		translate([max(strength_factor, pin_z_count - 1)*hole_spacing_z + 1,
+		translate([max(strength_factor, pin_z_count - 1)*hole_spacing_z + 2,
 			hole_spacing_x*((pin_x_count-1)/2),0])
 			cylinder(r=hole_size_x/2,  h=wall_thickness);
 
