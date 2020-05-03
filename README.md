@@ -2,6 +2,8 @@
 __Parametric Peg Board Mounts Generator__
 *Infinite ways to create pegboard holders and bins for tools or display objects.* 
 
+Forked from the [original Pegstr](https://github.com/MGX3D/pegstr). 
+
 __Highlights__:
 
 * One or multiple (m•n matrix) objects per holder
@@ -10,7 +12,8 @@ __Highlights__:
 * Chose between stronger or economical, straight or tapered, etc
 * Can be partially open (to click / snap in objects) and angled up or down
 
-Note: This is designed to work with US-style pegboard (1/4" holes, 1" spaced) but I'm working on updating the design to support other pegboards requested in the comments.
+Note: This is designed to work with Euro pegboard (sloted ), the [original](https://github.com/MGX3D/pegstr) works for US-style pegboard (1/4" holes, 1" spaced) .
+.
 
 Example objects:
 
@@ -21,18 +24,12 @@ Example objects:
 
 Thingiverse page: http://www.thingiverse.com/thing:537516
 
-Examples of mixed configurations:
+Examples of simple clips:
 
-![Examples](/images/_MG_1946.jpg?raw=true "Examples")
+![Examples](/images/IMG_1076.jpg?raw=true "Examples")
 
-Example of MT2 supports:
+Example of closed bin:
 
-![Examples](/images/_MG_2016.jpg?raw=true "Examples")
-
-
-Example of hex bits holder:
-
-![Examples](/images/_MG_1884.jpg?raw=true "Examples")
-
+![Examples](/images/IMG_5430.jpg?raw=true "Examples")
 
 Note: this is CC-NC (Creative Commons - Attribution - Non-Commercial), if you intend to use this for commercial purposes please contact me first.
