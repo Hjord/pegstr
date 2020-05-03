@@ -12,17 +12,11 @@ __Highlights__:
 * Chose between stronger or economical, straight or tapered, etc
 * Can be partially open (to click / snap in objects) and angled up or down
 
-Note: This is designed to work with Euro pegboard (sloted ), the [original](https://github.com/MGX3D/pegstr) works for US-style pegboard (1/4" holes, 1" spaced) .
-.
-
-Example objects:
-
-[![Pegstr](https://img.youtube.com/vi/gb9It1dF2z4/0.jpg)](https://youtu.be/gb9It1dF2z4)
-
-[![Pegstr Bins](https://img.youtube.com/vi/T17yfQddx3c/0.jpg)](http://youtu.be/T17yfQddx3c)
+Note: This is designed to work with Euro pegboard (sloted ), the [original](https://github.com/MGX3D/pegstr) works for US-style pegboard (1/4" holes, 1" spaced).
 
 
-Thingiverse page: http://www.thingiverse.com/thing:537516
+Thingiverse page: https://www.thingiverse.com/thing:4333614
+Thingiverse page (of original): http://www.thingiverse.com/thing:537516
 
 Examples of simple clips:
 
