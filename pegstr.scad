@@ -69,7 +69,7 @@ hole_spacing_x = 37.5;
 
 hole_size_x = 7;
 hole_size_z = 4.5;
-board_thickness = 2.0;
+board_thickness = 1.8;
 
 // TODO check this!!!
 edge_size = 8.45;
@@ -138,7 +138,7 @@ module pin(clipX, clipY)
         y = vertical ? hole_size_x * 0.85 : 3;
         translate([0,0,-board_thickness / 2 + 0.4])
             scale([1.0,y/x,1.0])
-            cylinder(d= hole_size_x*0.85, h = 0.7, center=true);
+            cylinder(d= hole_size_x*0.85, h = 0.8, center=true);
     }
 }
 
