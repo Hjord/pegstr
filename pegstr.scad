@@ -57,6 +57,9 @@ holder_cutout_side = 0.0;
 // set an angle for the holder to prevent object from sliding or to view it better from the top
 holder_angle = 0.0;
 
+// Generate 'legs'. Early implementation, doesn't work for every combination. Currently only works with 2 pin z count. Placement not testet and maybe needs finde tuning.
+generate_legs = 0;
+
 
 /* [Hidden] */
 
@@ -122,17 +125,33 @@ module round_rect_ex(x1, y1, x2, y2, z, r1, r2)
     }
 }
 
-module pin(clipX, clipY)
+module pin(clipX, clipY, firstX, lastX, lastZ)
 {        
 	if (clipX && clipY) {
         scale([1.0,hole_size_z/edge_size,1.0])
-            cylinder(d = edge_size, h = board_thickness, center=true, $fn=12);
-		
-        intersection() {
+		cube([8,4.5,2], true);
+        //translate([2.5,0,0])
+        //cylinder(1,0.8,0.8, center = true);
+          intersection() {
 			translate([0, 0, board_thickness / 2])
                 cylinder(d=edge_size, h=edge_thickness, center=false, $fn=12);
         }
-	} else if (clipX || clipY) {
+        if (generate_legs == 1) {
+         if (lastZ && firstX) {
+            translate([7.5,-12,0])
+            cylinder(h=2.5, r=2.2, center=true);
+            translate([-25,-14.4,-2])
+            cube([35,4.8,1], center = false);   
+         } 
+         if (lastZ && lastX) {
+            translate([7.5,12,0])
+            cylinder(h=2.5, r=2.2, center=true);
+            translate([-25,9.4,-2])
+            cube([35,4.8,1], center = false);                        
+         }
+     }
+      
+	} else if ((clipX || clipY) && false) {
         vertical = holder_total_z > holder_total_z;
         x = vertical ? 3 : hole_size_x * 0.85;
         y = vertical ? hole_size_x * 0.85 : 3;
@@ -159,14 +178,18 @@ module pinboard_clips()
                 skipWhen = !firstRow && rowIsEven && (firstItem || lastItem) && (firstItem && lastItem);
                 
                 if (!skipWhen) {                
-                    translate([
+       translate([
                         z * hole_spacing_z/2 + (hole_size_x - hole_size_z)/4, 
                         -(hole_spacing_x/3) * xCount/2 + (x * hole_spacing_x/3), 
                         0])
+
                             pin(z % 2 == 0, (
                     (x % 3 == 1 && xCount % 3 != 0) ||
-                    (xCount % 3 == 0 && x % 3 == 0)));
-                }
+                    (xCount % 3 == 0 && x % 3 == 0)),
+                    x == 1 || x == 0, 
+                    x == xTempCount -1, 
+                    z == zCount);
+                }                          
             }
         }
     }
@@ -398,3 +421,61 @@ module pegstr()
 
 rotate([180,0,0]) pegstr();
 
+module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "all") {
+	// If single value, convert to [x, y, z] vector
+	size = (size[0] == undef) ? [size, size, size] : size;
+
+	translate_min = radius;
+	translate_xmax = size[0] - radius;
+	translate_ymax = size[1] - radius;
+	translate_zmax = size[2] - radius;
+
+	diameter = radius * 2;
+
+	module build_point(type = "sphere", rotate = [0, 0, 0]) {
+		if (type == "sphere") {
+			sphere(r = radius);
+		} else if (type == "cylinder") {
+			rotate(a = rotate)
+			cylinder(h = diameter, r = radius, center = true);
+		}
+	}
+
+	obj_translate = (center == false) ?
+		[0, 0, 0] : [
+			-(size[0] / 2),
+			-(size[1] / 2),
+			-(size[2] / 2)
+		];
+
+	translate(v = obj_translate) {
+		hull() {
+			for (translate_x = [translate_min, translate_xmax]) {
+				x_at = (translate_x == translate_min) ? "min" : "max";
+				for (translate_y = [translate_min, translate_ymax]) {
+					y_at = (translate_y == translate_min) ? "min" : "max";
+					for (translate_z = [translate_min, translate_zmax]) {
+						z_at = (translate_z == translate_min) ? "min" : "max";
+
+						translate(v = [translate_x, translate_y, translate_z])
+						if (
+							(apply_to == "all") ||
+							(apply_to == "xmin" && x_at == "min") || (apply_to == "xmax" && x_at == "max") ||
+							(apply_to == "ymin" && y_at == "min") || (apply_to == "ymax" && y_at == "max") ||
+							(apply_to == "zmin" && z_at == "min") || (apply_to == "zmax" && z_at == "max")
+						) {
+							build_point("sphere");
+						} else {
+							rotate = 
+								(apply_to == "xmin" || apply_to == "xmax" || apply_to == "x") ? [0, 90, 0] : (
+								(apply_to == "ymin" || apply_to == "ymax" || apply_to == "y") ? [90, 90, 0] :
+								[0, 0, 0]
+							);
+							build_point("cylinder", rotate);
+						}
+					}
+				}
+			}
+		}
+	}
+}
